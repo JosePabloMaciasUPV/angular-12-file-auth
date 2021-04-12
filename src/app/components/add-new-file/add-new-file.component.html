@@ -1,0 +1,37 @@
+<div class="container">
+    <main>
+      <div class=" mt-3 py-5 text-center">
+        <h2>Subir Archivo nuevo</h2>
+        <p class="lead">En esta sección podrás agregar un archivo añadiendole algunos detalles para identificarlo y puedes especificar a los usuarios que podrán verlo.</p>
+      </div>
+      <form [formGroup]="newFile" (ngSubmit)="submit()">
+      <div class=" py-5 text-center">
+        <label for="cc-name" class="form-label">Nombre</label>
+        <input  formControlName="name" type="text" class="form-control" id="cc-name" placeholder="" required>
+        <small class="text-muted">Nombre del archivo</small>
+        <div class="invalid-feedback">
+          Nombre es requerido
+        </div>
+      </div>
+
+      <div class="  py-5 text-center">
+        <label for="exampleFormControlTextarea1" class="form-label">Descripcion del archivo</label>
+        <textarea formControlName="description" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+        <div class="invalid-feedback">
+          Descripcion es requerida
+        </div>
+      </div>
+
+      <div class="  py-5 text-center">
+        <label for="cc-expiration" class="form-label">Selecciona tu archivo a subir</label>
+        <input formControlName="file" type="file" class="form-control" id="cc-expiration" placeholder="" required>
+        <div class="invalid-feedback">
+          Se requiere un archivo
+        </div> 
+      </div>
+      <div class=" py-5 text-center">
+        <button class="w-100 btn btn-primary btn-lg" [disabled]="newFile.invalid" type="submit">Subir archivo</button>
+      </div>
+      </form>
+    </main>
+  </div>    
