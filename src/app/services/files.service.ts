@@ -8,7 +8,15 @@ import { Observable } from 'rxjs';
 export class FilesService {
   constructor(private http:HttpClient) { }
   getFiles(){
-    return this.http.get<Array<any>>(environment.apiUrl+"/files");
+    let body={
+      "email": localStorage.getItem('email'),
+    }
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    return this.http.post<Array<any>>(environment.apiUrl+"/files",body,httpOptions);
   }
   // Returns an observable
   uploadFile(name:string,description:string,file:any):Observable<any> {
@@ -19,6 +27,7 @@ export class FilesService {
     formData.append("file", file,file.name);
     formData.append("name", name);
     formData.append("description", description);
+    formData.append("email",  localStorage.getItem('email')|| "");
     // Make http post request over api
     // with formData as req
     const httpOptions = {
@@ -28,7 +37,7 @@ export class FilesService {
     };
     
       
-    return this.http.post(environment.apiUrl+"/files", formData,httpOptions)
+    return this.http.post(environment.apiUrl+"/newFile", formData,httpOptions)
   }
   downloadFile(fileId:string){
     // Create form data
@@ -36,6 +45,7 @@ export class FilesService {
     
     // Store form name as "file" with file data
     formData.append("id", fileId);
+    formData.append("email",  localStorage.getItem('email')|| "");
     // Make http post request over api
     // with formData as req
     const httpOptions = {

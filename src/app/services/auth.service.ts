@@ -22,7 +22,7 @@ export class AuthService {
     };
     return this.http.post(environment.apiUrl+"/login",body,httpOptions).subscribe(
       (response: any) => {
-        this.setToken(response.token);
+        this.setToken(response.token,email);
         this.isLoged.next(true);
         this.router.navigate(['/landing']);
       },
@@ -32,9 +32,28 @@ export class AuthService {
     );
   }
   logout(){
-    this.clear();
-    this.isLoged.next(false);
-    this.router.navigate(['/']);
+    let body={
+      "email": localStorage.getItem('email'),
+    }
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    this.http.post(environment.apiUrl+"/logout",body,httpOptions).subscribe(
+      (response: any) => {
+        this.clear();
+        this.isLoged.next(false);
+        this.router.navigate(['/']);
+      },
+      (error) => {
+        alert("La sesión caducó vuelve a iniciar sesion");
+        this.isLoged.next(false);
+        //this.logout();
+        this.router.navigate(['/login']);
+      }
+    );
+    
   }
   register(name:string,email:string,password:string){
     let body={
@@ -47,10 +66,20 @@ export class AuthService {
         'Content-Type': 'application/json'
       })
     };
-    return this.http.post(environment.apiUrl+"/register",body,httpOptions);
+    return this.http.post(environment.apiUrl+"/register",body,httpOptions).subscribe(
+      (response: any) => {
+        this.setToken(response.token,email);
+        this.isLoged.next(true);
+        this.router.navigate(['/landing']);
+      },
+      (error) => {
+        alert(error);
+      }
+    );
   }
-  setToken(jwtToken: string) {
+  setToken(jwtToken: string,email:string) {
     localStorage.setItem('jwtToken', jwtToken);
+    localStorage.setItem('email', email);
   }
   getToken(){
     return localStorage.getItem('jwtToken');
@@ -59,10 +88,18 @@ export class AuthService {
     localStorage.clear();
   }
   handshake(){
-    this.http.get(environment.apiUrl+"/handshake").subscribe(
+    let body={
+      "email": localStorage.getItem('email'),
+    }
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    this.http.post(environment.apiUrl+"/handshake",body,httpOptions).subscribe(
       (response: any) => {
-        this.setToken(response.token);
-        this.handshake();
+        this.isLoged.next(true);
+        this.router.navigate(['/landing']);
       },
       (error) => {
         alert("La sesión caducó vuelve a iniciar sesion");

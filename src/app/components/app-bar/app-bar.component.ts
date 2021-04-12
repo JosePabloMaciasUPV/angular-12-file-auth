@@ -11,6 +11,7 @@ export class AppBarComponent implements OnInit {
   constructor(private auth:AuthService) { }
 
   ngOnInit(): void {
+    this.auth.handshake();
     this.auth.getIsLoged().subscribe(status=>{this.isLoged=status});
   }
   signOut(){

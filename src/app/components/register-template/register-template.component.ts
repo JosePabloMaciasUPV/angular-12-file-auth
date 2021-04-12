@@ -23,6 +23,6 @@ export class RegisterTemplateComponent implements OnInit {
       this.register.value.name,
       this.register.value.email,
       this.register.value.password,
-    ).subscribe(res=>{console.log(res)})
+    )
   }
 }
