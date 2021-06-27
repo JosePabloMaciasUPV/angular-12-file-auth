@@ -1,37 +1,33 @@
-<div class="container">
-    <main>
-      <div class=" mt-3 py-5 text-center">
-        <h2>Subir Archivo nuevo</h2>
-        <p class="lead">En esta sección podrás agregar un archivo añadiendole algunos detalles para identificarlo y puedes especificar a los usuarios que podrán verlo.</p>
-      </div>
+<div class=" mt-3 d-flex justify-content-center">
+  <div class="card">
+    <div class="card-header">
+      <h3>Subir Archivo nuevo</h3>
+      <p>En esta sección podrás agregar un archivo añadiendole algunos detalles para identificarlo y puedes especificar a los usuarios que podrán verlo.</p>
+
+    </div>
+    <div class="card-body">
       <form [formGroup]="newFile" (ngSubmit)="submit()">
-      <div class=" py-5 text-center">
-        <label for="cc-name" class="form-label">Nombre</label>
-        <input  formControlName="name" type="text" class="form-control" id="cc-name" placeholder="" required>
-        <small class="text-muted">Nombre del archivo</small>
-        <div class="invalid-feedback">
-          Nombre es requerido
+        <div class="form-floating mb-3">
+          <input type="text" formControlName="name" class="form-control" id="fileName" placeholder="Juan"/>
+          <label for="fileName">Nombre del archivo</label>
         </div>
-      </div>
-
-      <div class="  py-5 text-center">
-        <label for="exampleFormControlTextarea1" class="form-label">Descripcion del archivo</label>
-        <textarea formControlName="description" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-        <div class="invalid-feedback">
-          Descripcion es requerida
+        <div class="form-floating mb-3">
+          <textarea formControlName="description" class="form-control" id="descriptionFile" rows="3"></textarea>
+          <label for="descriptionFile">Descripcion es requerida</label>
         </div>
-      </div>
 
-      <div class="  py-5 text-center">
-        <label for="cc-expiration" class="form-label">Selecciona tu archivo a subir</label>
-        <input formControlName="file" type="file" class="form-control" id="cc-expiration" placeholder="" required>
-        <div class="invalid-feedback">
-          Se requiere un archivo
-        </div> 
-      </div>
-      <div class=" py-5 text-center">
-        <button class="w-100 btn btn-primary btn-lg" [disabled]="newFile.invalid" type="submit">Subir archivo</button>
-      </div>
+        <div class="form-floating mb-3">
+            <label class="file-input" for="filePath">Selecciona tu archivo a subir</label>
+            <input type="file" formControlName="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+            <h4 class="whiteText">{{fileName || "Sin archivo seleccionado."}}</h4>
+            <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()"><i class="bi bi-file-earmark-arrow-up" style="font-size: 2rem; color: cornflowerblue;"></i></button>
+        </div>
+        
+        <div class="form-group">
+          <input type="submit" value="Subir Archivo" [disabled]="newFile.invalid" class="btn float-right login_btn"/>
+        </div>
       </form>
-    </main>
-  </div>    
+      </div>
+      
+    </div>
+</div>

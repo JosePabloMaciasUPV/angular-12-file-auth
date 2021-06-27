@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FilesService} from '../../services/files.service';
+
 @Component({
   selector: 'app-landing-files',
   templateUrl: './landing-files.component.html',
@@ -10,8 +11,9 @@ export class LandingFilesComponent implements OnInit {
   constructor(private fileService:FilesService) { }
 
   ngOnInit(): void {
+    this.getFiles();
   }
-  getFile(){
-    this.fileService.getFile().subscribe(res=>{console.log(res)});
+  getFiles(){
+    this.fileService.getFiles().subscribe(res=>{console.log(res)});
   }
 }
