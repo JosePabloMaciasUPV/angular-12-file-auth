@@ -7,7 +7,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  isLoged:BehaviorSubject<boolean>=new BehaviorSubject<boolean>(false);
+  private isLoged:BehaviorSubject<boolean>=new BehaviorSubject<boolean>(false);
   constructor(private http:HttpClient,private router: Router,) { }
   getIsLoged(){return this.isLoged;}
   login(email:string,password:string){
@@ -31,7 +31,11 @@ export class AuthService {
       }
     );
   }
-  logout(){this.clear()}
+  logout(){
+    this.clear();
+    this.isLoged.next(false);
+    this.router.navigate(['/']);
+  }
   register(name:string,email:string,password:string){
     let body={
       "username":name,

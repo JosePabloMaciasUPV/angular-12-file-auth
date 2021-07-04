@@ -7,13 +7,20 @@ import {FilesService} from '../../services/files.service';
   styleUrls: ['./landing-files.component.scss']
 })
 export class LandingFilesComponent implements OnInit {
-
+  myFiles:Array<any>=[];
   constructor(private fileService:FilesService) { }
 
   ngOnInit(): void {
     this.getFiles();
   }
   getFiles(){
-    this.fileService.getFiles().subscribe(res=>{console.log(res)});
+    this.fileService.getFiles().subscribe(res=>{
+      this.myFiles=res;
+      console.log(this.myFiles);
+    });
+  }
+  downloadFile(id:string){
+    console.log(id)
+    this.fileService.downloadFile(id).subscribe(res=>console.log(res));
   }
 }

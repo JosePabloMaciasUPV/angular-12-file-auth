@@ -7,11 +7,13 @@ import {AuthService} from '../../services/auth.service';
   styleUrls: ['./app-bar.component.scss']
 })
 export class AppBarComponent implements OnInit {
-  isLoged:BehaviorSubject<boolean>=new BehaviorSubject<boolean>(false);
+  isLoged:boolean=false;
   constructor(private auth:AuthService) { }
 
   ngOnInit(): void {
-    this.isLoged=this.auth.getIsLoged();
+    this.auth.getIsLoged().subscribe(status=>{this.isLoged=status});
   }
-   
+  signOut(){
+    this.auth.logout();
+  }
 }
