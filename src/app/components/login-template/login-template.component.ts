@@ -20,7 +20,7 @@ export class LoginTemplateComponent implements OnInit {
     this.authService.login(
       this.login.value.email,
       this.login.value.password,
-    ).subscribe(res=>{console.log(res)})
+    );
   }
 
 }
