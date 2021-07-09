@@ -19,7 +19,7 @@ export class FilesService {
     return this.http.post<Array<any>>(environment.apiUrl+"/files",body,httpOptions);
   }
   // Returns an observable
-  uploadFile(name:string,description:string,file:any):Observable<any> {
+  uploadFile(name:string,description:string,file:any,sharedUsers:Array<string>):Observable<any> {
     // Create form data
     const formData = new FormData(); 
     
@@ -27,7 +27,9 @@ export class FilesService {
     formData.append("file", file,file.name);
     formData.append("name", name);
     formData.append("description", description);
+    formData.append("sharedUsers",JSON.stringify(sharedUsers));
     formData.append("email",  localStorage.getItem('email')|| "");
+
     // Make http post request over api
     // with formData as req
     const httpOptions = {

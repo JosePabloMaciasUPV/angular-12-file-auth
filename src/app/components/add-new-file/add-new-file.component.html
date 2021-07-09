@@ -12,17 +12,37 @@
           <label for="fileName">Nombre del archivo</label>
         </div>
         <div class="form-floating mb-3">
-          <textarea formControlName="description" class="form-control" id="descriptionFile" rows="3"></textarea>
+          <textarea formControlName="description" class="form-control textArea" id="descriptionFile" rows="3"></textarea>
           <label for="descriptionFile">Descripcion es requerida</label>
         </div>
 
+        
+
+
+        <div class=" mb-3">
+          <div class="input-group form-floating">
+          <input type="text" id="shared" formControlName="shared" class="form-control"/>
+          <div class="input-group-text"><button type="button" class=" float-right" (click)="onNewShared()"><i class="bi bi-cloud-plus"></i></button></div>
+          <label for="shared">Inserta usuario(Correo electrónico)</label>
+          </div>
+          
+          <ul class="list-group">
+            <li class="list-group-item" *ngFor="let item of newSharedList; index as i;">{{item}}<button type="button" class="btn-close float-right" aria-label="Close" (click)="deleteShared(i)"></button></li>
+          </ul>
+        </div>
+
+
+
         <div class="form-floating mb-3">
-            <label class="file-input" for="filePath">Selecciona tu archivo a subir</label>
-            <input type="file" formControlName="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+            <label class="file-input" >Selecciona tu archivo a subir</label>
+            <input type="file" formControlName="file" class="file-input" (change)="onFileSelected($event)" #fileUpload> 
             <h4 class="whiteText">{{fileName || "Sin archivo seleccionado."}}</h4>
             <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()"><i class="bi bi-file-earmark-arrow-up" style="font-size: 2rem; color: cornflowerblue;"></i></button>
         </div>
-        
+
+
+
+
         <div class="form-group">
           <input type="submit" value="Subir Archivo" [disabled]="newFile.invalid" class="btn float-right login_btn"/>
         </div>
