@@ -20,7 +20,6 @@ export class LandingFilesComponent implements OnInit {
     });
   }
   downloadFile(id:string){
-    console.log(id)
-    this.fileService.downloadFile(id).subscribe(res=>console.log(res));
+    this.fileService.downloadFile(id)
   }
 }

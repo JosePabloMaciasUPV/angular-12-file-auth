@@ -26,12 +26,18 @@ export class AddNewFileComponent implements OnInit {
       alert("aun no has terminado de añadir un correo:"+this.newFile.value.shared);
     }
     else{
+      //Send the own creator authorization
+      this.newSharedList.push( localStorage.getItem('email') || "");
+      //Remove duplicates
+      let tempSet= new Set(this.newSharedList);
+      this.newSharedList=Array.from(tempSet);
+      //Send the request
       this.fileService.uploadFile(
         this.newFile.value.name,
         this.newFile.value.description,
         this.file,
         this.newSharedList
-        ).subscribe(res=>{console.log(res)})
+        )
     }
     
   }
@@ -44,9 +50,11 @@ export class AddNewFileComponent implements OnInit {
     this.newSharedList.splice(index, 1);
   }
   onNewShared(){
-    if(this.newFile.controls.shared.valid){
+    if(this.newFile.controls.shared.valid && this.newFile.value.shared.length>1){
       this.newSharedList.push(this.newFile.value.shared);
       this.newFile.controls.shared.setValue("");
+      let tempSet= new Set(this.newSharedList);
+      this.newSharedList=Array.from(tempSet);
     }else{
       alert("inserta un correo valido");
     }
