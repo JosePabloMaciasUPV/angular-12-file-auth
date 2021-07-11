@@ -20,13 +20,14 @@ export class FilesService {
     return this.http.post<Array<any>>(environment.apiUrl+"/files",body,httpOptions);
   }
   // Returns an observable
-  uploadFile(name:string,description:string,file:any,sharedUsers:Array<string>) {
+  uploadFile(name:string,description:string,file:any,sharedUsers:Array<string>,fileName:string) {
     // Create form data
     const formData = new FormData(); 
     
     // Store form name as "file" with file data
     formData.append("file", file,file.name);
     formData.append("name", name);
+    formData.append("fileName", fileName);
     formData.append("description", description);
     formData.append("sharedUsers",JSON.stringify(sharedUsers));
     formData.append("email",  localStorage.getItem('email')|| "");
@@ -48,7 +49,7 @@ export class FilesService {
       
     });
   }
-  downloadFile(fileId:string){
+  downloadFile(fileId:string,fileName:string){
     // Create form data
     const formData = new FormData(); 
     
@@ -67,19 +68,19 @@ export class FilesService {
     
     return this.http.post(environment.apiUrl+"/file", body,httpOptions).subscribe(
       (response: any) => {
-      this.downLoadFile(response, "application/pdf");
+      this.downLoadFile(response, "application/pdf",fileName);
     },
     (error) => {
       console.log(error);
     }) 
   }
 
-  downLoadFile(data: any, type: string) {
+  downLoadFile(data: any, type: string,fileName:string) {
     let blob = new Blob([data]  );//, { type: type});
     let url = window.URL.createObjectURL(blob);
     let pwa = window.open(url);
     if (!pwa || pwa.closed || typeof pwa.closed == 'undefined') {
         alert( 'Please disable your Pop-up blocker and try again.');
     }
-}
+    }
 }

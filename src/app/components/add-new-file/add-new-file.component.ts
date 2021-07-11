@@ -36,7 +36,8 @@ export class AddNewFileComponent implements OnInit {
         this.newFile.value.name,
         this.newFile.value.description,
         this.file,
-        this.newSharedList
+        this.newSharedList,
+        this.fileName
         )
     }
     
