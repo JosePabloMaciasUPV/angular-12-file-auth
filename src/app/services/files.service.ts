@@ -76,7 +76,7 @@ export class FilesService {
   }
 
   downLoadFile(data: any, type: string,fileName:string) {
-    let blob = new Blob([data]  );//, { type: type});
+    let blob = new Blob([data], { type: 'text/csv;charset=utf-8' });
     let url = window.URL.createObjectURL(blob);
     let pwa = window.open(url);
     if (!pwa || pwa.closed || typeof pwa.closed == 'undefined') {

@@ -18,6 +18,7 @@ export class AddNewFileComponent implements OnInit {
   //Where the file is going to be saved
   file:File | undefined;
   fileName:string="";
+  loading:boolean=false;
   ngOnInit(): void {
 
   }
@@ -26,11 +27,13 @@ export class AddNewFileComponent implements OnInit {
       alert("aun no has terminado de añadir un correo:"+this.newFile.value.shared);
     }
     else{
+      if(this.newFile.controls.file.valid && this.newFile.controls.name.valid && this.newFile.controls.description.valid ){
       //Send the own creator authorization
       this.newSharedList.push( localStorage.getItem('email') || "");
       //Remove duplicates
       let tempSet= new Set(this.newSharedList);
       this.newSharedList=Array.from(tempSet);
+      this.loading=true;
       //Send the request
       this.fileService.uploadFile(
         this.newFile.value.name,
@@ -39,6 +42,7 @@ export class AddNewFileComponent implements OnInit {
         this.newSharedList,
         this.fileName
         )
+      }
     }
     
   }
