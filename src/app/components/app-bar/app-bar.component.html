@@ -13,23 +13,23 @@
        
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
             <li><a routerLink="/landing" class="nav-link px-2 text-white">Mis archivos</a></li>
-          <li><a routerLink="/landing/sharedToMe" class="nav-link px-2 text-white">Compartidos conmigo</a></li>
+          <!--<li><a routerLink="/landing/sharedToMe" class="nav-link px-2 text-white">Compartidos conmigo</a></li>-->
           <li><a routerLink="/landing/new"class="nav-link px-2 text-white">Agregar nuevo</a></li>
         </ul>
 
-        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+        <!--<form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
           <input type="search" class="form-control form-control-dark" placeholder="Palabra clave" aria-label="Buscar Archivo">
         </form>
 
         <div class="text-end">
           <button type="button" class="btn btn-outline-light me-2">Buscar</button>
-        </div>
+        </div>-->
         <div class="dropdown">
             <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
               <i class="bi bi-person-circle" style="font-size: 2rem; color: cornflowerblue;"></i>
             </a>
             <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-              
+              <li><a class="dropdown-item" (click)="signOutAllSesion()">Cerrar todas las sesiones</a></li>
               <li><a class="dropdown-item" (click)="signOut()">Cerrar la sesión</a></li>
             </ul>
         </div>

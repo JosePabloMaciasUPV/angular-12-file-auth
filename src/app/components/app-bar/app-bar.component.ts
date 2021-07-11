@@ -17,4 +17,7 @@ export class AppBarComponent implements OnInit {
   signOut(){
     this.auth.logout();
   }
+  signOutAllSesion(){
+    this.auth.removeSesions();
+  }
 }

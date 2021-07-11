@@ -108,4 +108,23 @@ export class AuthService {
       }
     );
   }
+  removeSesions(){
+    let body={
+      "email": localStorage.getItem('email'),
+    }
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    this.http.post(environment.apiUrl+"/removeSesion",body,httpOptions).subscribe(
+      (response: any) => {
+        alert("Se cerraron todas las sesiones");
+        this.router.navigate(['/login']);
+      },
+      (error) => {
+        alert("Lo siento no se puede conectar");
+      }
+    );
+  }
 }
